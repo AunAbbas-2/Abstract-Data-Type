@@ -1,0 +1,85 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+const int MAX_STACK_SIZE = 100;
+
+struct IntStack{  // the name of my stack is s.
+    int data[MAX_STACK_SIZE];
+    int top_index;
+
+    IntStack(){
+        top_index = -1;
+    }
+
+};
+
+void push(IntStack &s, int value){  // for using the push and pop function I need to initialize the function with my IntStack &s or you could say s variable.
+    if(s.top_index >= MAX_STACK_SIZE - 1){
+        cout<<"Stack overflow!"<<endl;
+        return;
+    }
+    s.data[++s.top_index] = value;
+}
+
+void pop(IntStack &s){
+    if(s.top_index < 0){
+        cout<<"Stack underflow!";
+        return;
+    }
+
+    s.top_index--;
+}
+
+int top_value(IntStack &s){
+    if(s.top_index < 0){
+        cout<<"Stack is empty!";
+        return -1;
+    }
+    return s.data[s.top_index];
+}
+
+bool s_is_empty(IntStack &s){
+    return s.top_index == -1;
+}
+
+bool is_full(IntStack &s){
+ return s.top_index == MAX_STACK_SIZE - 1;
+}
+
+
+int main(){
+    IntStack s;
+    int n;
+    cout<<"Enter the no of elements of your array: "<<endl;
+    cin>>n;
+
+    if(n > MAX_STACK_SIZE){
+        cout<<"Too many values, enter again!"<<endl;
+        return 1;
+    }
+    cout<<"Enter the elements: "<<endl;
+    for(int i = 0;i<n;i++){
+        int val;
+        cin>>val;
+        push(s, val);
+    }
+
+    cout<<"top element: "<<top_value(s) << endl;
+
+    cout<<"Is your stack full: "<<endl;
+    cout<<boolalpha<<is_full(s)<<endl;
+
+    cout<<"Is your stack empty: "<<endl;
+    cout<<boolalpha<<s_is_empty(s)<<endl;
+
+
+
+    while(!s_is_empty(s)){
+        cout << top_value(s) << " ";
+        pop(s);
+        
+    }
+
+    return 0;
+}
